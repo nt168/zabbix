@@ -1,0 +1,47 @@
+include ../Makefile.include
+
+BINARIES_tests = \
+        mprocess \
+        sprocess
+
+noinst_PROGRAMS = $(BINARIES_tests)
+
+IPC_COMPILER_FLAGS = \
+        -I@top_srcdir@/tests \
+        $(CMOCKA_CFLAGS)
+
+IPC_LIBS = \
+        $(top_srcdir)/src/libs/zbxipcservice/libzbxipcservice.a \
+        $(top_srcdir)/src/libs/zbxlog/libzbxlog.a \
+        $(top_srcdir)/src/libs/zbxthreads/libzbxthreads.a \
+        $(top_srcdir)/src/libs/zbxmutexs/libzbxmutexs.a \
+        $(top_srcdir)/src/libs/zbxprof/libzbxprof.a \
+        $(top_srcdir)/src/libs/zbxnix/libzbxnix.a \
+        $(top_srcdir)/src/libs/zbxalgo/libzbxalgo.a \
+        $(top_srcdir)/src/libs/zbxtime/libzbxtime.a \
+        $(top_srcdir)/src/libs/zbxstr/libzbxstr.a \
+        $(top_srcdir)/src/libs/zbxcommon/libzbxcommon.a 
+
+mprocess_SOURCES = \
+       mprocess.c 
+
+mprocess_LDADD = \
+        $(IPC_LIBS)
+
+mprocess_LDADD += @SERVER_LIBS@
+
+mprocess_LDFLAGS = @SERVER_LDFLAGS@ $(CMOCKA_LDFLAGS)
+
+mprocess_CFLAGS = $(IPC_COMPILER_FLAGS)
+
+sprocess_SOURCES = \
+       sprocess.c
+
+sprocess_LDADD = \
+        $(IPC_LIBS)
+
+sprocess_LDADD += @SERVER_LIBS@
+
+sprocess_LDFLAGS = @SERVER_LDFLAGS@ $(CMOCKA_LDFLAGS)
+
+sprocess_CFLAGS = $(IPC_COMPILER_FLAGS)
