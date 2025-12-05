@@ -21,7 +21,7 @@ int main()
 	zbx_ipc_service_start(&svc, "demo", &err);   // 会生成 /tmp/zabbix_demo.sock
 
 	for (;;) {
-		zbx_timespec_t to = {1, 0};              // 1s 超时循环
+		zbx_timespec_t to = {0, 0};              // 1s 超时循环
     		zbx_ipc_client_t *cli;
     		zbx_ipc_message_t *msg;
 
