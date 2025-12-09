@@ -21,7 +21,7 @@
 #include "zbxserialize.h"
 #include "zbxself.h"
 #include "zbxthreads.h"
-#include "zbxjson.h"
+//#include "zbxjson.h"
 #include "zbxnum.h"
 
 /******************************************************************************
@@ -129,8 +129,8 @@ static int	rtc_parse_profiler_parameter(const char *opt, size_t len, struct zbx_
 	{
 		if (SUCCEED == (ret = rtc_option_get_prof_scope(opt + size, size - len, &scope)))
 		{	
-		//			zbx_json_addint64(j, ZBX_PROTO_TAG_SCOPE, scope);
-		}
+//			zbx_json_addint64(j, ZBX_PROTO_TAG_SCOPE, scope);
+		}	
 	}
 
 	if (SUCCEED != ret)
@@ -218,7 +218,7 @@ int	zbx_rtc_parse_options(const char *opt, zbx_uint32_t *code, struct zbx_json *
 		if (NULL != param)
 		{
 			*code = ZBX_RTC_DIAGINFO;
-			zbx_json_addstring(j, ZBX_PROTO_TAG_SECTION, param, ZBX_JSON_TYPE_STRING);
+//			zbx_json_addstring(j, ZBX_PROTO_TAG_SECTION, param, ZBX_JSON_TYPE_STRING);
 
 			return SUCCEED;
 		}
@@ -237,7 +237,7 @@ int	zbx_rtc_parse_options(const char *opt, zbx_uint32_t *code, struct zbx_json *
 		if (NULL != param && FAIL != zbx_is_uint64(param, &itemid))
 		{
 			*code = ZBX_RTC_HISTORY_CACHE_CLEAR;
-			zbx_json_adduint64(j, ZBX_PROTO_TAG_ITEMID, itemid);
+//			zbx_json_adduint64(j, ZBX_PROTO_TAG_ITEMID, itemid);
 
 			return SUCCEED;
 		}
@@ -443,12 +443,15 @@ int	zbx_rtc_wait(zbx_ipc_async_socket_t *rtc, const zbx_thread_info_t *info, zbx
 	int			ret;
 
 	if (0 != timeout)
-		zbx_update_selfmon_counter(info, ZBX_PROCESS_STATE_IDLE);
-
+	{	
+//		zbx_update_selfmon_counter(info, ZBX_PROCESS_STATE_IDLE);
+	}
 	ret = zbx_ipc_async_socket_recv(rtc, timeout, &message);
 
 	if (0 != timeout)
-		zbx_update_selfmon_counter(info, ZBX_PROCESS_STATE_BUSY);
+	{	
+//		zbx_update_selfmon_counter(info, ZBX_PROCESS_STATE_BUSY);
+	}		
 
 	if (FAIL == ret)
 		return FAIL;
