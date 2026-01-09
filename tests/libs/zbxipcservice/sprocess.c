@@ -47,7 +47,7 @@ int main()
                 return FAIL;
         }
 
-        const char payload[] = "async=hello";
+        const unsigned char payload[] = "async=hello";
         zbx_ipc_async_socket_send(&asocket, 2, payload, sizeof(payload));
 
         if (SUCCEED != zbx_ipc_async_socket_flush(&asocket, 5))
