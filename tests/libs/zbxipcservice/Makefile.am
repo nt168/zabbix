@@ -8,13 +8,14 @@ rtc_agt \
 rtc_slv
 
 noinst_PROGRAMS = $(BINARIES_tests)
+noinst_LIBRARIES = libzbxipcservice_test.a
 
 IPC_COMPILER_FLAGS = \
         -I@top_srcdir@/tests \
         $(CMOCKA_CFLAGS)
 
 IPC_LIBS = \
-$(top_srcdir)/src/libs/zbxipcservice/libzbxipcservice.a \
+$(builddir)/libzbxipcservice_test.a \
 $(top_srcdir)/src/libs/zbxserialize/libzbxserialize.a \
 $(top_srcdir)/src/libs/zbxjson/libzbxjson.a \
 $(top_srcdir)/src/libs/zbxcachehistory/libzbxcachehistory.a \
@@ -30,6 +31,12 @@ $(top_srcdir)/src/libs/zbxnum/libzbxnum.a \
 $(top_srcdir)/src/libs/zbxtime/libzbxtime.a \
 $(top_srcdir)/src/libs/zbxstr/libzbxstr.a \
 $(top_srcdir)/src/libs/zbxcommon/libzbxcommon.a
+
+libzbxipcservice_test_a_SOURCES = \
+	ipc/ipcservice.c
+
+libzbxipcservice_test_a_CFLAGS = \
+	$(LIBEVENT_CFLAGS)
 
 mprocess_SOURCES = \
        mprocess.c 
