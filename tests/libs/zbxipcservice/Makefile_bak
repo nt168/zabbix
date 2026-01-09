@@ -23,6 +23,7 @@
 # Order in which libraries are listed must not be important.
 
 
+
 am__is_gnu_make = { \
   if test -z '$(MAKELEVEL)'; then \
     false; \
@@ -123,13 +124,67 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/include/common/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
-am__EXEEXT_1 = mprocess$(EXEEXT) sprocess$(EXEEXT)
+am__EXEEXT_1 = mprocess$(EXEEXT) sprocess$(EXEEXT) rtc_serv$(EXEEXT) \
+	rtc_agt$(EXEEXT) rtc_slv$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
+LIBRARIES = $(noinst_LIBRARIES)
+AR = ar
+ARFLAGS = cru
+AM_V_AR = $(am__v_AR_$(V))
+am__v_AR_ = $(am__v_AR_$(AM_DEFAULT_VERBOSITY))
+am__v_AR_0 = @echo "  AR      " $@;
+am__v_AR_1 = 
+libzbxipcservice_test_a_AR = $(AR) $(ARFLAGS)
+libzbxipcservice_test_a_LIBADD =
+am__dirstamp = $(am__leading_dot)dirstamp
+am_libzbxipcservice_test_a_OBJECTS =  \
+	ipc/libzbxipcservice_test_a-ipcservice.$(OBJEXT) \
+	nlib/src/zbxalgo/libzbxipcservice_test_a-algodefs.$(OBJEXT) \
+	nlib/src/zbxalgo/libzbxipcservice_test_a-binaryheap.$(OBJEXT) \
+	nlib/src/zbxalgo/libzbxipcservice_test_a-hashmap.$(OBJEXT) \
+	nlib/src/zbxalgo/libzbxipcservice_test_a-hashset.$(OBJEXT) \
+	nlib/src/zbxalgo/libzbxipcservice_test_a-int128.$(OBJEXT) \
+	nlib/src/zbxalgo/libzbxipcservice_test_a-linked_list.$(OBJEXT) \
+	nlib/src/zbxalgo/libzbxipcservice_test_a-prediction.$(OBJEXT) \
+	nlib/src/zbxalgo/libzbxipcservice_test_a-queue.$(OBJEXT) \
+	nlib/src/zbxalgo/libzbxipcservice_test_a-vector.$(OBJEXT) \
+	nlib/src/zbxcommon/libzbxipcservice_test_a-common_log.$(OBJEXT) \
+	nlib/src/zbxcommon/libzbxipcservice_test_a-common_str.$(OBJEXT) \
+	nlib/src/zbxcommon/libzbxipcservice_test_a-components_strings_representations.$(OBJEXT) \
+	nlib/src/zbxcommon/libzbxipcservice_test_a-cuid.$(OBJEXT) \
+	nlib/src/zbxcommon/libzbxipcservice_test_a-libc_wrappers.$(OBJEXT) \
+	nlib/src/zbxcommon/libzbxipcservice_test_a-misc.$(OBJEXT) \
+	nlib/src/zbxcommon/libzbxipcservice_test_a-setproctitle.$(OBJEXT) \
+	nlib/src/zbxnum/libzbxipcservice_test_a-num.$(OBJEXT) \
+	nlib/src/zbxprof/libzbxipcservice_test_a-prof.$(OBJEXT) \
+	nlib/src/zbxstr/libzbxipcservice_test_a-str.$(OBJEXT) \
+	nlib/src/zbxtime/libzbxipcservice_test_a-time.$(OBJEXT)
+libzbxipcservice_test_a_OBJECTS =  \
+	$(am_libzbxipcservice_test_a_OBJECTS)
 am_mprocess_OBJECTS = mprocess-mprocess.$(OBJEXT)
 mprocess_OBJECTS = $(am_mprocess_OBJECTS)
 mprocess_DEPENDENCIES = $(IPC_LIBS)
 mprocess_LINK = $(CCLD) $(mprocess_CFLAGS) $(CFLAGS) \
 	$(mprocess_LDFLAGS) $(LDFLAGS) -o $@
+am_rtc_agt_OBJECTS = rtc_agt-rtc_agt.$(OBJEXT) \
+	rtc_agt-rtc_client.$(OBJEXT) rtc_agt-rtc.$(OBJEXT)
+rtc_agt_OBJECTS = $(am_rtc_agt_OBJECTS)
+rtc_agt_DEPENDENCIES = $(IPC_LIBS)
+rtc_agt_LINK = $(CCLD) $(rtc_agt_CFLAGS) $(CFLAGS) $(rtc_agt_LDFLAGS) \
+	$(LDFLAGS) -o $@
+am_rtc_serv_OBJECTS = rtc_serv-rtc_serv.$(OBJEXT) \
+	rtc_serv-rtc_service.$(OBJEXT) rtc_serv-rtc_client.$(OBJEXT) \
+	rtc_serv-rtc.$(OBJEXT)
+rtc_serv_OBJECTS = $(am_rtc_serv_OBJECTS)
+rtc_serv_DEPENDENCIES = $(IPC_LIBS)
+rtc_serv_LINK = $(CCLD) $(rtc_serv_CFLAGS) $(CFLAGS) \
+	$(rtc_serv_LDFLAGS) $(LDFLAGS) -o $@
+am_rtc_slv_OBJECTS = rtc_slv-rtc_slv.$(OBJEXT) \
+	rtc_slv-rtc_client.$(OBJEXT) rtc_slv-rtc.$(OBJEXT)
+rtc_slv_OBJECTS = $(am_rtc_slv_OBJECTS)
+rtc_slv_DEPENDENCIES = $(IPC_LIBS)
+rtc_slv_LINK = $(CCLD) $(rtc_slv_CFLAGS) $(CFLAGS) $(rtc_slv_LDFLAGS) \
+	$(LDFLAGS) -o $@
 am_sprocess_OBJECTS = sprocess-sprocess.$(OBJEXT)
 sprocess_OBJECTS = $(am_sprocess_OBJECTS)
 sprocess_DEPENDENCIES = $(IPC_LIBS)
@@ -150,7 +205,35 @@ am__v_at_1 =
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__maybe_remake_depfiles = depfiles
 am__depfiles_remade = ./$(DEPDIR)/mprocess-mprocess.Po \
-	./$(DEPDIR)/sprocess-sprocess.Po
+	./$(DEPDIR)/rtc_agt-rtc.Po ./$(DEPDIR)/rtc_agt-rtc_agt.Po \
+	./$(DEPDIR)/rtc_agt-rtc_client.Po ./$(DEPDIR)/rtc_serv-rtc.Po \
+	./$(DEPDIR)/rtc_serv-rtc_client.Po \
+	./$(DEPDIR)/rtc_serv-rtc_serv.Po \
+	./$(DEPDIR)/rtc_serv-rtc_service.Po ./$(DEPDIR)/rtc_slv-rtc.Po \
+	./$(DEPDIR)/rtc_slv-rtc_client.Po \
+	./$(DEPDIR)/rtc_slv-rtc_slv.Po \
+	./$(DEPDIR)/sprocess-sprocess.Po \
+	ipc/$(DEPDIR)/libzbxipcservice_test_a-ipcservice.Po \
+	nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-algodefs.Po \
+	nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-binaryheap.Po \
+	nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashmap.Po \
+	nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashset.Po \
+	nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-int128.Po \
+	nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-linked_list.Po \
+	nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-prediction.Po \
+	nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-queue.Po \
+	nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-vector.Po \
+	nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_log.Po \
+	nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_str.Po \
+	nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-components_strings_representations.Po \
+	nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-cuid.Po \
+	nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-libc_wrappers.Po \
+	nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-misc.Po \
+	nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-setproctitle.Po \
+	nlib/src/zbxnum/$(DEPDIR)/libzbxipcservice_test_a-num.Po \
+	nlib/src/zbxprof/$(DEPDIR)/libzbxipcservice_test_a-prof.Po \
+	nlib/src/zbxstr/$(DEPDIR)/libzbxipcservice_test_a-str.Po \
+	nlib/src/zbxtime/$(DEPDIR)/libzbxipcservice_test_a-time.Po
 am__mv = mv -f
 AM_V_lt = $(am__v_lt_$(V))
 am__v_lt_ = $(am__v_lt_$(AM_DEFAULT_VERBOSITY))
@@ -168,8 +251,12 @@ AM_V_CCLD = $(am__v_CCLD_$(V))
 am__v_CCLD_ = $(am__v_CCLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(mprocess_SOURCES) $(sprocess_SOURCES)
-DIST_SOURCES = $(mprocess_SOURCES) $(sprocess_SOURCES)
+SOURCES = $(libzbxipcservice_test_a_SOURCES) $(mprocess_SOURCES) \
+	$(rtc_agt_SOURCES) $(rtc_serv_SOURCES) $(rtc_slv_SOURCES) \
+	$(sprocess_SOURCES)
+DIST_SOURCES = $(libzbxipcservice_test_a_SOURCES) $(mprocess_SOURCES) \
+	$(rtc_agt_SOURCES) $(rtc_serv_SOURCES) $(rtc_slv_SOURCES) \
+	$(sprocess_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -195,7 +282,7 @@ am__define_uniq_tagged_files = \
 am__DIST_COMMON = $(srcdir)/../Makefile.include $(srcdir)/Makefile.in \
 	$(top_srcdir)/depcomp README.md
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
-ACLOCAL = ${SHELL} '/home/nt/zabbix/missing' aclocal-1.16
+ACLOCAL = ${SHELL} '/home/nt/zabbix_bak/missing' aclocal-1.16
 AGENT2_CONFIG_DIR = ${prefix}/etc/zabbix_agent2.d
 AGENT2_CONFIG_FILE = ${prefix}/etc/zabbix_agent2.conf
 AGENT2_LDFLAGS =    
@@ -211,9 +298,9 @@ ARCH = linux
 ARES_CFLAGS = 
 ARES_LDFLAGS = 
 ARES_LIBS = 
-AUTOCONF = ${SHELL} '/home/nt/zabbix/missing' autoconf
-AUTOHEADER = ${SHELL} '/home/nt/zabbix/missing' autoheader
-AUTOMAKE = ${SHELL} '/home/nt/zabbix/missing' automake-1.16
+AUTOCONF = ${SHELL} '/home/nt/zabbix_bak/missing' autoconf
+AUTOHEADER = ${SHELL} '/home/nt/zabbix_bak/missing' autoheader
+AUTOMAKE = ${SHELL} '/home/nt/zabbix_bak/missing' automake-1.16
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -234,9 +321,9 @@ CXX = g++
 CXXDEPMODE = depmode=gcc3
 CXXFLAGS = -g -O2
 CYGPATH_W = echo
-DB_CFLAGS = -I/usr/include/mysql   
-DB_LDFLAGS =  -L/usr/lib/x86_64-linux-gnu  
-DB_LIBS = -lmysqlclient  -lz -lzstd -lssl -lcrypto -lresolv -lm  
+DB_CFLAGS =   -I/usr/include
+DB_LDFLAGS =   -L/usr/lib
+DB_LIBS =   -lsqlite3
 DEFAULT_INCLUDES = -I$(top_srcdir)/include/common -I$(top_srcdir)/include
 DEFS = -DHAVE_CONFIG_H
 DEPDIR = .deps
@@ -289,13 +376,13 @@ LIBXML2_LIBS =
 LIBXML2_VERSION = 
 LOAD_MODULE_PATH = ${exec_prefix}/lib/modules
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} '/home/nt/zabbix/missing' makeinfo
+MAKEINFO = ${SHELL} '/home/nt/zabbix_bak/missing' makeinfo
 MKDIR_P = /usr/bin/mkdir -p
-MYSQL_CFLAGS = -I/usr/include/mysql 
-MYSQL_CONFIG = /usr/bin/mysql_config
-MYSQL_LDFLAGS =  -L/usr/lib/x86_64-linux-gnu
-MYSQL_LIBS = -lmysqlclient  -lz -lzstd -lssl -lcrypto -lresolv -lm
-MYSQL_VERSION = 8.0.44
+MYSQL_CFLAGS = 
+MYSQL_CONFIG = no
+MYSQL_LDFLAGS = 
+MYSQL_LIBS = 
+MYSQL_VERSION = 
 OBJEXT = o
 ODBC_CONFIG = 
 OPENIPMI_CFLAGS = 
@@ -322,25 +409,25 @@ POSTGRESQL_LIBS =
 POSTGRESQL_VERSION = 
 POW_LIB = 
 PROXY_CONFIG_FILE = ${prefix}/etc/zabbix_proxy.conf
-PROXY_LDFLAGS =    -L/usr/lib/x86_64-linux-gnu              
-PROXY_LIBS =  -lmysqlclient  -lz -lzstd -lssl -lcrypto -lresolv -lm          -lz -lpthread -levent_core -levent_extra -levent_pthreads   
+PROXY_LDFLAGS =     -L/usr/lib            
+PROXY_LIBS =    -lsqlite3        -lz -lpthread -levent_core -levent_extra -levent_pthreads   
 RANLIB = ranlib
 RESOLV_LIBS = 
 SED = /usr/bin/sed
 SENDER_LDFLAGS =      
 SENDER_LIBS =  -lz -lpthread  -lz -lpthread
 SERVER_CONFIG_FILE = ${prefix}/etc/zabbix_server.conf
-SERVER_LDFLAGS =    -L/usr/lib/x86_64-linux-gnu              
-SERVER_LIBS =  -lmysqlclient  -lz -lzstd -lssl -lcrypto -lresolv -lm          -lz -lpthread -levent_core -levent_extra -levent_pthreads   
+SERVER_LDFLAGS =     -L/usr/lib            
+SERVER_LIBS =    -lsqlite3        -lz -lpthread -levent_core -levent_extra -levent_pthreads   
 SET_MAKE = 
 SHELL = /bin/bash
 SNMP_CFLAGS = 
 SNMP_LDFLAGS = 
 SNMP_LIBS = 
-SQLITE3_CPPFLAGS = 
-SQLITE3_LDFLAGS = 
-SQLITE3_LIBS = 
-SQLITE3_VERSION = 
+SQLITE3_CPPFLAGS = -I/usr/include
+SQLITE3_LDFLAGS = -L/usr/lib
+SQLITE3_LIBS = -lsqlite3
+SQLITE3_VERSION = 3.45.1
 SSH2_CFLAGS = 
 SSH2_LDFLAGS = 
 SSH2_LIBS = 
@@ -371,10 +458,10 @@ _libcurl_config = no
 _libnetsnmp_config = no
 _libnetsnmp_config_bin = 
 _libnetsnmp_config_root = 
-abs_builddir = /home/nt/zabbix/tests/libs/zbxipcservice
-abs_srcdir = /home/nt/zabbix/tests/libs/zbxipcservice
-abs_top_builddir = /home/nt/zabbix
-abs_top_srcdir = /home/nt/zabbix
+abs_builddir = /home/nt/zabbix_bak/tests/libs/zbxipcservice
+abs_srcdir = /home/nt/zabbix_bak/tests/libs/zbxipcservice
+abs_top_builddir = /home/nt/zabbix_bak
+abs_top_srcdir = /home/nt/zabbix_bak
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
@@ -402,7 +489,7 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/nt/zabbix/install-sh
+install_sh = ${SHELL} /home/nt/zabbix_bak/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -672,38 +759,88 @@ MOCK_TEST_DEPS = \
 	$(top_srcdir)/src/libs/zbxcommon/libzbxcommon.a
 
 BINARIES_tests = \
-        mprocess \
-        sprocess
+mprocess \
+sprocess \
+rtc_serv \
+rtc_agt \
+rtc_slv
 
+noinst_LIBRARIES = libzbxipcservice_test.a
 IPC_COMPILER_FLAGS = \
-        -I../../../tests \
+        -I$(srcdir)/nlib/include \
+        -I$(srcdir)/nlib/include/common \
         $(CMOCKA_CFLAGS)
 
 IPC_LIBS = \
-        $(top_srcdir)/src/libs/zbxipcservice/libzbxipcservice.a \
-        $(top_srcdir)/src/libs/zbxlog/libzbxlog.a \
-        $(top_srcdir)/src/libs/zbxthreads/libzbxthreads.a \
-        $(top_srcdir)/src/libs/zbxmutexs/libzbxmutexs.a \
-        $(top_srcdir)/src/libs/zbxprof/libzbxprof.a \
-        $(top_srcdir)/src/libs/zbxnix/libzbxnix.a \
-        $(top_srcdir)/src/libs/zbxalgo/libzbxalgo.a \
-	$(top_srcdir)/src/libs/zbxnum/libzbxnum.a \
-	$(top_srcdir)/src/libs/zbxtime/libzbxtime.a \
-        $(top_srcdir)/src/libs/zbxstr/libzbxstr.a \
-        $(top_srcdir)/src/libs/zbxcommon/libzbxcommon.a 
+$(builddir)/libzbxipcservice_test.a
+
+libzbxipcservice_test_a_SOURCES = \
+	ipc/ipcservice.c \
+	nlib/src/zbxalgo/algodefs.c \
+	nlib/src/zbxalgo/binaryheap.c \
+	nlib/src/zbxalgo/hashmap.c \
+	nlib/src/zbxalgo/hashset.c \
+	nlib/src/zbxalgo/int128.c \
+	nlib/src/zbxalgo/linked_list.c \
+	nlib/src/zbxalgo/prediction.c \
+	nlib/src/zbxalgo/queue.c \
+	nlib/src/zbxalgo/vector.c \
+	nlib/src/zbxcommon/common_log.c \
+	nlib/src/zbxcommon/common_str.c \
+	nlib/src/zbxcommon/components_strings_representations.c \
+	nlib/src/zbxcommon/cuid.c \
+	nlib/src/zbxcommon/libc_wrappers.c \
+	nlib/src/zbxcommon/misc.c \
+	nlib/src/zbxcommon/setproctitle.c \
+	nlib/src/zbxnum/num.c \
+	nlib/src/zbxprof/prof.c \
+	nlib/src/zbxstr/str.c \
+	nlib/src/zbxtime/time.c
+
+libzbxipcservice_test_a_CFLAGS = \
+	$(LIBEVENT_CFLAGS) \
+	$(IPC_COMPILER_FLAGS)
 
 mprocess_SOURCES = \
-       mprocess.c 
+       mprocess.c
 
-mprocess_LDADD = $(IPC_LIBS)  -lmysqlclient  -lz -lzstd -lssl -lcrypto -lresolv -lm          -lz -lpthread -levent_core -levent_extra -levent_pthreads   
-mprocess_LDFLAGS =    -L/usr/lib/x86_64-linux-gnu               $(CMOCKA_LDFLAGS)
+mprocess_LDADD = $(IPC_LIBS)    -lsqlite3        -lz -lpthread -levent_core -levent_extra -levent_pthreads   
+mprocess_LDFLAGS =     -L/usr/lib             $(CMOCKA_LDFLAGS)
 mprocess_CFLAGS = $(IPC_COMPILER_FLAGS)
 sprocess_SOURCES = \
        sprocess.c
 
-sprocess_LDADD = $(IPC_LIBS)  -lmysqlclient  -lz -lzstd -lssl -lcrypto -lresolv -lm          -lz -lpthread -levent_core -levent_extra -levent_pthreads   
-sprocess_LDFLAGS =    -L/usr/lib/x86_64-linux-gnu               $(CMOCKA_LDFLAGS)
+sprocess_LDADD = $(IPC_LIBS)    -lsqlite3        -lz -lpthread -levent_core -levent_extra -levent_pthreads   
+sprocess_LDFLAGS =     -L/usr/lib             $(CMOCKA_LDFLAGS)
 sprocess_CFLAGS = $(IPC_COMPILER_FLAGS)
+rtc_serv_SOURCES = \
+rtc_serv.c \
+rtc_service.c \
+rtc_client.c \
+rtc.c \
+rtc.h
+
+rtc_serv_LDADD = $(IPC_LIBS)    -lsqlite3        -lz -lpthread -levent_core -levent_extra -levent_pthreads   
+rtc_serv_LDFLAGS =     -L/usr/lib             $(CMOCKA_LDFLAGS)
+rtc_serv_CFLAGS = $(IPC_COMPILER_FLAGS)
+rtc_agt_SOURCES = \
+rtc_agt.c \
+rtc_client.c \
+rtc.c \
+rtc.h
+
+rtc_agt_LDADD = $(IPC_LIBS)    -lsqlite3        -lz -lpthread -levent_core -levent_extra -levent_pthreads   
+rtc_agt_LDFLAGS =     -L/usr/lib             $(CMOCKA_LDFLAGS)
+rtc_agt_CFLAGS = $(IPC_COMPILER_FLAGS)
+rtc_slv_SOURCES = \
+rtc_slv.c \
+rtc_client.c \
+rtc.c \
+rtc.h
+
+rtc_slv_LDADD = $(IPC_LIBS)    -lsqlite3        -lz -lpthread -levent_core -levent_extra -levent_pthreads   
+rtc_slv_LDFLAGS =     -L/usr/lib             $(CMOCKA_LDFLAGS)
+rtc_slv_CFLAGS = $(IPC_COMPILER_FLAGS)
 all: all-am
 
 .SUFFIXES:
@@ -742,9 +879,133 @@ $(am__aclocal_m4_deps):
 clean-noinstPROGRAMS:
 	-test -z "$(noinst_PROGRAMS)" || rm -f $(noinst_PROGRAMS)
 
+clean-noinstLIBRARIES:
+	-test -z "$(noinst_LIBRARIES)" || rm -f $(noinst_LIBRARIES)
+ipc/$(am__dirstamp):
+	@$(MKDIR_P) ipc
+	@: > ipc/$(am__dirstamp)
+ipc/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) ipc/$(DEPDIR)
+	@: > ipc/$(DEPDIR)/$(am__dirstamp)
+ipc/libzbxipcservice_test_a-ipcservice.$(OBJEXT): ipc/$(am__dirstamp) \
+	ipc/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxalgo/$(am__dirstamp):
+	@$(MKDIR_P) nlib/src/zbxalgo
+	@: > nlib/src/zbxalgo/$(am__dirstamp)
+nlib/src/zbxalgo/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) nlib/src/zbxalgo/$(DEPDIR)
+	@: > nlib/src/zbxalgo/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxalgo/libzbxipcservice_test_a-algodefs.$(OBJEXT):  \
+	nlib/src/zbxalgo/$(am__dirstamp) \
+	nlib/src/zbxalgo/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxalgo/libzbxipcservice_test_a-binaryheap.$(OBJEXT):  \
+	nlib/src/zbxalgo/$(am__dirstamp) \
+	nlib/src/zbxalgo/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxalgo/libzbxipcservice_test_a-hashmap.$(OBJEXT):  \
+	nlib/src/zbxalgo/$(am__dirstamp) \
+	nlib/src/zbxalgo/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxalgo/libzbxipcservice_test_a-hashset.$(OBJEXT):  \
+	nlib/src/zbxalgo/$(am__dirstamp) \
+	nlib/src/zbxalgo/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxalgo/libzbxipcservice_test_a-int128.$(OBJEXT):  \
+	nlib/src/zbxalgo/$(am__dirstamp) \
+	nlib/src/zbxalgo/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxalgo/libzbxipcservice_test_a-linked_list.$(OBJEXT):  \
+	nlib/src/zbxalgo/$(am__dirstamp) \
+	nlib/src/zbxalgo/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxalgo/libzbxipcservice_test_a-prediction.$(OBJEXT):  \
+	nlib/src/zbxalgo/$(am__dirstamp) \
+	nlib/src/zbxalgo/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxalgo/libzbxipcservice_test_a-queue.$(OBJEXT):  \
+	nlib/src/zbxalgo/$(am__dirstamp) \
+	nlib/src/zbxalgo/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxalgo/libzbxipcservice_test_a-vector.$(OBJEXT):  \
+	nlib/src/zbxalgo/$(am__dirstamp) \
+	nlib/src/zbxalgo/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxcommon/$(am__dirstamp):
+	@$(MKDIR_P) nlib/src/zbxcommon
+	@: > nlib/src/zbxcommon/$(am__dirstamp)
+nlib/src/zbxcommon/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) nlib/src/zbxcommon/$(DEPDIR)
+	@: > nlib/src/zbxcommon/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxcommon/libzbxipcservice_test_a-common_log.$(OBJEXT):  \
+	nlib/src/zbxcommon/$(am__dirstamp) \
+	nlib/src/zbxcommon/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxcommon/libzbxipcservice_test_a-common_str.$(OBJEXT):  \
+	nlib/src/zbxcommon/$(am__dirstamp) \
+	nlib/src/zbxcommon/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxcommon/libzbxipcservice_test_a-components_strings_representations.$(OBJEXT):  \
+	nlib/src/zbxcommon/$(am__dirstamp) \
+	nlib/src/zbxcommon/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxcommon/libzbxipcservice_test_a-cuid.$(OBJEXT):  \
+	nlib/src/zbxcommon/$(am__dirstamp) \
+	nlib/src/zbxcommon/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxcommon/libzbxipcservice_test_a-libc_wrappers.$(OBJEXT):  \
+	nlib/src/zbxcommon/$(am__dirstamp) \
+	nlib/src/zbxcommon/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxcommon/libzbxipcservice_test_a-misc.$(OBJEXT):  \
+	nlib/src/zbxcommon/$(am__dirstamp) \
+	nlib/src/zbxcommon/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxcommon/libzbxipcservice_test_a-setproctitle.$(OBJEXT):  \
+	nlib/src/zbxcommon/$(am__dirstamp) \
+	nlib/src/zbxcommon/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxnum/$(am__dirstamp):
+	@$(MKDIR_P) nlib/src/zbxnum
+	@: > nlib/src/zbxnum/$(am__dirstamp)
+nlib/src/zbxnum/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) nlib/src/zbxnum/$(DEPDIR)
+	@: > nlib/src/zbxnum/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxnum/libzbxipcservice_test_a-num.$(OBJEXT):  \
+	nlib/src/zbxnum/$(am__dirstamp) \
+	nlib/src/zbxnum/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxprof/$(am__dirstamp):
+	@$(MKDIR_P) nlib/src/zbxprof
+	@: > nlib/src/zbxprof/$(am__dirstamp)
+nlib/src/zbxprof/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) nlib/src/zbxprof/$(DEPDIR)
+	@: > nlib/src/zbxprof/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxprof/libzbxipcservice_test_a-prof.$(OBJEXT):  \
+	nlib/src/zbxprof/$(am__dirstamp) \
+	nlib/src/zbxprof/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxstr/$(am__dirstamp):
+	@$(MKDIR_P) nlib/src/zbxstr
+	@: > nlib/src/zbxstr/$(am__dirstamp)
+nlib/src/zbxstr/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) nlib/src/zbxstr/$(DEPDIR)
+	@: > nlib/src/zbxstr/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxstr/libzbxipcservice_test_a-str.$(OBJEXT):  \
+	nlib/src/zbxstr/$(am__dirstamp) \
+	nlib/src/zbxstr/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxtime/$(am__dirstamp):
+	@$(MKDIR_P) nlib/src/zbxtime
+	@: > nlib/src/zbxtime/$(am__dirstamp)
+nlib/src/zbxtime/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) nlib/src/zbxtime/$(DEPDIR)
+	@: > nlib/src/zbxtime/$(DEPDIR)/$(am__dirstamp)
+nlib/src/zbxtime/libzbxipcservice_test_a-time.$(OBJEXT):  \
+	nlib/src/zbxtime/$(am__dirstamp) \
+	nlib/src/zbxtime/$(DEPDIR)/$(am__dirstamp)
+
+libzbxipcservice_test.a: $(libzbxipcservice_test_a_OBJECTS) $(libzbxipcservice_test_a_DEPENDENCIES) $(EXTRA_libzbxipcservice_test_a_DEPENDENCIES) 
+	$(AM_V_at)-rm -f libzbxipcservice_test.a
+	$(AM_V_AR)$(libzbxipcservice_test_a_AR) libzbxipcservice_test.a $(libzbxipcservice_test_a_OBJECTS) $(libzbxipcservice_test_a_LIBADD)
+	$(AM_V_at)$(RANLIB) libzbxipcservice_test.a
+
 mprocess$(EXEEXT): $(mprocess_OBJECTS) $(mprocess_DEPENDENCIES) $(EXTRA_mprocess_DEPENDENCIES) 
 	@rm -f mprocess$(EXEEXT)
 	$(AM_V_CCLD)$(mprocess_LINK) $(mprocess_OBJECTS) $(mprocess_LDADD) $(LIBS)
+
+rtc_agt$(EXEEXT): $(rtc_agt_OBJECTS) $(rtc_agt_DEPENDENCIES) $(EXTRA_rtc_agt_DEPENDENCIES) 
+	@rm -f rtc_agt$(EXEEXT)
+	$(AM_V_CCLD)$(rtc_agt_LINK) $(rtc_agt_OBJECTS) $(rtc_agt_LDADD) $(LIBS)
+
+rtc_serv$(EXEEXT): $(rtc_serv_OBJECTS) $(rtc_serv_DEPENDENCIES) $(EXTRA_rtc_serv_DEPENDENCIES) 
+	@rm -f rtc_serv$(EXEEXT)
+	$(AM_V_CCLD)$(rtc_serv_LINK) $(rtc_serv_OBJECTS) $(rtc_serv_LDADD) $(LIBS)
+
+rtc_slv$(EXEEXT): $(rtc_slv_OBJECTS) $(rtc_slv_DEPENDENCIES) $(EXTRA_rtc_slv_DEPENDENCIES) 
+	@rm -f rtc_slv$(EXEEXT)
+	$(AM_V_CCLD)$(rtc_slv_LINK) $(rtc_slv_OBJECTS) $(rtc_slv_LDADD) $(LIBS)
 
 sprocess$(EXEEXT): $(sprocess_OBJECTS) $(sprocess_DEPENDENCIES) $(EXTRA_sprocess_DEPENDENCIES) 
 	@rm -f sprocess$(EXEEXT)
@@ -752,12 +1013,50 @@ sprocess$(EXEEXT): $(sprocess_OBJECTS) $(sprocess_DEPENDENCIES) $(EXTRA_sprocess
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
+	-rm -f ipc/*.$(OBJEXT)
+	-rm -f nlib/src/zbxalgo/*.$(OBJEXT)
+	-rm -f nlib/src/zbxcommon/*.$(OBJEXT)
+	-rm -f nlib/src/zbxnum/*.$(OBJEXT)
+	-rm -f nlib/src/zbxprof/*.$(OBJEXT)
+	-rm -f nlib/src/zbxstr/*.$(OBJEXT)
+	-rm -f nlib/src/zbxtime/*.$(OBJEXT)
 
 distclean-compile:
 	-rm -f *.tab.c
 
 include ./$(DEPDIR)/mprocess-mprocess.Po # am--include-marker
+include ./$(DEPDIR)/rtc_agt-rtc.Po # am--include-marker
+include ./$(DEPDIR)/rtc_agt-rtc_agt.Po # am--include-marker
+include ./$(DEPDIR)/rtc_agt-rtc_client.Po # am--include-marker
+include ./$(DEPDIR)/rtc_serv-rtc.Po # am--include-marker
+include ./$(DEPDIR)/rtc_serv-rtc_client.Po # am--include-marker
+include ./$(DEPDIR)/rtc_serv-rtc_serv.Po # am--include-marker
+include ./$(DEPDIR)/rtc_serv-rtc_service.Po # am--include-marker
+include ./$(DEPDIR)/rtc_slv-rtc.Po # am--include-marker
+include ./$(DEPDIR)/rtc_slv-rtc_client.Po # am--include-marker
+include ./$(DEPDIR)/rtc_slv-rtc_slv.Po # am--include-marker
 include ./$(DEPDIR)/sprocess-sprocess.Po # am--include-marker
+include ipc/$(DEPDIR)/libzbxipcservice_test_a-ipcservice.Po # am--include-marker
+include nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-algodefs.Po # am--include-marker
+include nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-binaryheap.Po # am--include-marker
+include nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashmap.Po # am--include-marker
+include nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashset.Po # am--include-marker
+include nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-int128.Po # am--include-marker
+include nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-linked_list.Po # am--include-marker
+include nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-prediction.Po # am--include-marker
+include nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-queue.Po # am--include-marker
+include nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-vector.Po # am--include-marker
+include nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_log.Po # am--include-marker
+include nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_str.Po # am--include-marker
+include nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-components_strings_representations.Po # am--include-marker
+include nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-cuid.Po # am--include-marker
+include nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-libc_wrappers.Po # am--include-marker
+include nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-misc.Po # am--include-marker
+include nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-setproctitle.Po # am--include-marker
+include nlib/src/zbxnum/$(DEPDIR)/libzbxipcservice_test_a-num.Po # am--include-marker
+include nlib/src/zbxprof/$(DEPDIR)/libzbxipcservice_test_a-prof.Po # am--include-marker
+include nlib/src/zbxstr/$(DEPDIR)/libzbxipcservice_test_a-str.Po # am--include-marker
+include nlib/src/zbxtime/$(DEPDIR)/libzbxipcservice_test_a-time.Po # am--include-marker
 
 $(am__depfiles_remade):
 	@$(MKDIR_P) $(@D)
@@ -781,6 +1080,300 @@ am--depfiles: $(am__depfiles_remade)
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(COMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
+ipc/libzbxipcservice_test_a-ipcservice.o: ipc/ipcservice.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT ipc/libzbxipcservice_test_a-ipcservice.o -MD -MP -MF ipc/$(DEPDIR)/libzbxipcservice_test_a-ipcservice.Tpo -c -o ipc/libzbxipcservice_test_a-ipcservice.o `test -f 'ipc/ipcservice.c' || echo '$(srcdir)/'`ipc/ipcservice.c
+	$(AM_V_at)$(am__mv) ipc/$(DEPDIR)/libzbxipcservice_test_a-ipcservice.Tpo ipc/$(DEPDIR)/libzbxipcservice_test_a-ipcservice.Po
+#	$(AM_V_CC)source='ipc/ipcservice.c' object='ipc/libzbxipcservice_test_a-ipcservice.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o ipc/libzbxipcservice_test_a-ipcservice.o `test -f 'ipc/ipcservice.c' || echo '$(srcdir)/'`ipc/ipcservice.c
+
+ipc/libzbxipcservice_test_a-ipcservice.obj: ipc/ipcservice.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT ipc/libzbxipcservice_test_a-ipcservice.obj -MD -MP -MF ipc/$(DEPDIR)/libzbxipcservice_test_a-ipcservice.Tpo -c -o ipc/libzbxipcservice_test_a-ipcservice.obj `if test -f 'ipc/ipcservice.c'; then $(CYGPATH_W) 'ipc/ipcservice.c'; else $(CYGPATH_W) '$(srcdir)/ipc/ipcservice.c'; fi`
+	$(AM_V_at)$(am__mv) ipc/$(DEPDIR)/libzbxipcservice_test_a-ipcservice.Tpo ipc/$(DEPDIR)/libzbxipcservice_test_a-ipcservice.Po
+#	$(AM_V_CC)source='ipc/ipcservice.c' object='ipc/libzbxipcservice_test_a-ipcservice.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o ipc/libzbxipcservice_test_a-ipcservice.obj `if test -f 'ipc/ipcservice.c'; then $(CYGPATH_W) 'ipc/ipcservice.c'; else $(CYGPATH_W) '$(srcdir)/ipc/ipcservice.c'; fi`
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-algodefs.o: nlib/src/zbxalgo/algodefs.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-algodefs.o -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-algodefs.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-algodefs.o `test -f 'nlib/src/zbxalgo/algodefs.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/algodefs.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-algodefs.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-algodefs.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/algodefs.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-algodefs.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-algodefs.o `test -f 'nlib/src/zbxalgo/algodefs.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/algodefs.c
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-algodefs.obj: nlib/src/zbxalgo/algodefs.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-algodefs.obj -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-algodefs.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-algodefs.obj `if test -f 'nlib/src/zbxalgo/algodefs.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/algodefs.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/algodefs.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-algodefs.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-algodefs.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/algodefs.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-algodefs.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-algodefs.obj `if test -f 'nlib/src/zbxalgo/algodefs.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/algodefs.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/algodefs.c'; fi`
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-binaryheap.o: nlib/src/zbxalgo/binaryheap.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-binaryheap.o -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-binaryheap.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-binaryheap.o `test -f 'nlib/src/zbxalgo/binaryheap.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/binaryheap.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-binaryheap.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-binaryheap.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/binaryheap.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-binaryheap.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-binaryheap.o `test -f 'nlib/src/zbxalgo/binaryheap.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/binaryheap.c
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-binaryheap.obj: nlib/src/zbxalgo/binaryheap.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-binaryheap.obj -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-binaryheap.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-binaryheap.obj `if test -f 'nlib/src/zbxalgo/binaryheap.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/binaryheap.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/binaryheap.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-binaryheap.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-binaryheap.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/binaryheap.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-binaryheap.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-binaryheap.obj `if test -f 'nlib/src/zbxalgo/binaryheap.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/binaryheap.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/binaryheap.c'; fi`
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-hashmap.o: nlib/src/zbxalgo/hashmap.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-hashmap.o -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashmap.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-hashmap.o `test -f 'nlib/src/zbxalgo/hashmap.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/hashmap.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashmap.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashmap.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/hashmap.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-hashmap.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-hashmap.o `test -f 'nlib/src/zbxalgo/hashmap.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/hashmap.c
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-hashmap.obj: nlib/src/zbxalgo/hashmap.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-hashmap.obj -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashmap.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-hashmap.obj `if test -f 'nlib/src/zbxalgo/hashmap.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/hashmap.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/hashmap.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashmap.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashmap.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/hashmap.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-hashmap.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-hashmap.obj `if test -f 'nlib/src/zbxalgo/hashmap.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/hashmap.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/hashmap.c'; fi`
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-hashset.o: nlib/src/zbxalgo/hashset.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-hashset.o -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashset.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-hashset.o `test -f 'nlib/src/zbxalgo/hashset.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/hashset.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashset.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashset.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/hashset.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-hashset.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-hashset.o `test -f 'nlib/src/zbxalgo/hashset.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/hashset.c
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-hashset.obj: nlib/src/zbxalgo/hashset.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-hashset.obj -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashset.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-hashset.obj `if test -f 'nlib/src/zbxalgo/hashset.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/hashset.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/hashset.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashset.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashset.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/hashset.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-hashset.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-hashset.obj `if test -f 'nlib/src/zbxalgo/hashset.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/hashset.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/hashset.c'; fi`
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-int128.o: nlib/src/zbxalgo/int128.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-int128.o -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-int128.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-int128.o `test -f 'nlib/src/zbxalgo/int128.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/int128.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-int128.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-int128.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/int128.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-int128.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-int128.o `test -f 'nlib/src/zbxalgo/int128.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/int128.c
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-int128.obj: nlib/src/zbxalgo/int128.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-int128.obj -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-int128.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-int128.obj `if test -f 'nlib/src/zbxalgo/int128.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/int128.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/int128.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-int128.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-int128.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/int128.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-int128.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-int128.obj `if test -f 'nlib/src/zbxalgo/int128.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/int128.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/int128.c'; fi`
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-linked_list.o: nlib/src/zbxalgo/linked_list.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-linked_list.o -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-linked_list.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-linked_list.o `test -f 'nlib/src/zbxalgo/linked_list.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/linked_list.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-linked_list.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-linked_list.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/linked_list.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-linked_list.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-linked_list.o `test -f 'nlib/src/zbxalgo/linked_list.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/linked_list.c
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-linked_list.obj: nlib/src/zbxalgo/linked_list.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-linked_list.obj -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-linked_list.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-linked_list.obj `if test -f 'nlib/src/zbxalgo/linked_list.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/linked_list.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/linked_list.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-linked_list.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-linked_list.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/linked_list.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-linked_list.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-linked_list.obj `if test -f 'nlib/src/zbxalgo/linked_list.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/linked_list.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/linked_list.c'; fi`
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-prediction.o: nlib/src/zbxalgo/prediction.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-prediction.o -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-prediction.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-prediction.o `test -f 'nlib/src/zbxalgo/prediction.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/prediction.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-prediction.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-prediction.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/prediction.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-prediction.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-prediction.o `test -f 'nlib/src/zbxalgo/prediction.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/prediction.c
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-prediction.obj: nlib/src/zbxalgo/prediction.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-prediction.obj -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-prediction.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-prediction.obj `if test -f 'nlib/src/zbxalgo/prediction.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/prediction.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/prediction.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-prediction.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-prediction.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/prediction.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-prediction.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-prediction.obj `if test -f 'nlib/src/zbxalgo/prediction.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/prediction.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/prediction.c'; fi`
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-queue.o: nlib/src/zbxalgo/queue.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-queue.o -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-queue.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-queue.o `test -f 'nlib/src/zbxalgo/queue.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/queue.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-queue.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-queue.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/queue.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-queue.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-queue.o `test -f 'nlib/src/zbxalgo/queue.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/queue.c
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-queue.obj: nlib/src/zbxalgo/queue.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-queue.obj -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-queue.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-queue.obj `if test -f 'nlib/src/zbxalgo/queue.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/queue.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/queue.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-queue.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-queue.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/queue.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-queue.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-queue.obj `if test -f 'nlib/src/zbxalgo/queue.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/queue.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/queue.c'; fi`
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-vector.o: nlib/src/zbxalgo/vector.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-vector.o -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-vector.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-vector.o `test -f 'nlib/src/zbxalgo/vector.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/vector.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-vector.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-vector.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/vector.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-vector.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-vector.o `test -f 'nlib/src/zbxalgo/vector.c' || echo '$(srcdir)/'`nlib/src/zbxalgo/vector.c
+
+nlib/src/zbxalgo/libzbxipcservice_test_a-vector.obj: nlib/src/zbxalgo/vector.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxalgo/libzbxipcservice_test_a-vector.obj -MD -MP -MF nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-vector.Tpo -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-vector.obj `if test -f 'nlib/src/zbxalgo/vector.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/vector.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/vector.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-vector.Tpo nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-vector.Po
+#	$(AM_V_CC)source='nlib/src/zbxalgo/vector.c' object='nlib/src/zbxalgo/libzbxipcservice_test_a-vector.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxalgo/libzbxipcservice_test_a-vector.obj `if test -f 'nlib/src/zbxalgo/vector.c'; then $(CYGPATH_W) 'nlib/src/zbxalgo/vector.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxalgo/vector.c'; fi`
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-common_log.o: nlib/src/zbxcommon/common_log.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-common_log.o -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_log.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-common_log.o `test -f 'nlib/src/zbxcommon/common_log.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/common_log.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_log.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_log.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/common_log.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-common_log.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-common_log.o `test -f 'nlib/src/zbxcommon/common_log.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/common_log.c
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-common_log.obj: nlib/src/zbxcommon/common_log.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-common_log.obj -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_log.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-common_log.obj `if test -f 'nlib/src/zbxcommon/common_log.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/common_log.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/common_log.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_log.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_log.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/common_log.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-common_log.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-common_log.obj `if test -f 'nlib/src/zbxcommon/common_log.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/common_log.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/common_log.c'; fi`
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-common_str.o: nlib/src/zbxcommon/common_str.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-common_str.o -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_str.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-common_str.o `test -f 'nlib/src/zbxcommon/common_str.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/common_str.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_str.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_str.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/common_str.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-common_str.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-common_str.o `test -f 'nlib/src/zbxcommon/common_str.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/common_str.c
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-common_str.obj: nlib/src/zbxcommon/common_str.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-common_str.obj -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_str.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-common_str.obj `if test -f 'nlib/src/zbxcommon/common_str.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/common_str.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/common_str.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_str.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_str.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/common_str.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-common_str.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-common_str.obj `if test -f 'nlib/src/zbxcommon/common_str.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/common_str.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/common_str.c'; fi`
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-components_strings_representations.o: nlib/src/zbxcommon/components_strings_representations.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-components_strings_representations.o -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-components_strings_representations.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-components_strings_representations.o `test -f 'nlib/src/zbxcommon/components_strings_representations.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/components_strings_representations.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-components_strings_representations.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-components_strings_representations.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/components_strings_representations.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-components_strings_representations.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-components_strings_representations.o `test -f 'nlib/src/zbxcommon/components_strings_representations.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/components_strings_representations.c
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-components_strings_representations.obj: nlib/src/zbxcommon/components_strings_representations.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-components_strings_representations.obj -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-components_strings_representations.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-components_strings_representations.obj `if test -f 'nlib/src/zbxcommon/components_strings_representations.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/components_strings_representations.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/components_strings_representations.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-components_strings_representations.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-components_strings_representations.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/components_strings_representations.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-components_strings_representations.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-components_strings_representations.obj `if test -f 'nlib/src/zbxcommon/components_strings_representations.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/components_strings_representations.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/components_strings_representations.c'; fi`
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-cuid.o: nlib/src/zbxcommon/cuid.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-cuid.o -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-cuid.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-cuid.o `test -f 'nlib/src/zbxcommon/cuid.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/cuid.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-cuid.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-cuid.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/cuid.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-cuid.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-cuid.o `test -f 'nlib/src/zbxcommon/cuid.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/cuid.c
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-cuid.obj: nlib/src/zbxcommon/cuid.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-cuid.obj -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-cuid.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-cuid.obj `if test -f 'nlib/src/zbxcommon/cuid.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/cuid.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/cuid.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-cuid.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-cuid.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/cuid.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-cuid.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-cuid.obj `if test -f 'nlib/src/zbxcommon/cuid.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/cuid.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/cuid.c'; fi`
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-libc_wrappers.o: nlib/src/zbxcommon/libc_wrappers.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-libc_wrappers.o -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-libc_wrappers.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-libc_wrappers.o `test -f 'nlib/src/zbxcommon/libc_wrappers.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/libc_wrappers.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-libc_wrappers.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-libc_wrappers.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/libc_wrappers.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-libc_wrappers.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-libc_wrappers.o `test -f 'nlib/src/zbxcommon/libc_wrappers.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/libc_wrappers.c
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-libc_wrappers.obj: nlib/src/zbxcommon/libc_wrappers.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-libc_wrappers.obj -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-libc_wrappers.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-libc_wrappers.obj `if test -f 'nlib/src/zbxcommon/libc_wrappers.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/libc_wrappers.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/libc_wrappers.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-libc_wrappers.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-libc_wrappers.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/libc_wrappers.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-libc_wrappers.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-libc_wrappers.obj `if test -f 'nlib/src/zbxcommon/libc_wrappers.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/libc_wrappers.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/libc_wrappers.c'; fi`
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-misc.o: nlib/src/zbxcommon/misc.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-misc.o -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-misc.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-misc.o `test -f 'nlib/src/zbxcommon/misc.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/misc.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-misc.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-misc.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/misc.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-misc.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-misc.o `test -f 'nlib/src/zbxcommon/misc.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/misc.c
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-misc.obj: nlib/src/zbxcommon/misc.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-misc.obj -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-misc.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-misc.obj `if test -f 'nlib/src/zbxcommon/misc.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/misc.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/misc.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-misc.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-misc.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/misc.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-misc.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-misc.obj `if test -f 'nlib/src/zbxcommon/misc.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/misc.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/misc.c'; fi`
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-setproctitle.o: nlib/src/zbxcommon/setproctitle.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-setproctitle.o -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-setproctitle.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-setproctitle.o `test -f 'nlib/src/zbxcommon/setproctitle.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/setproctitle.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-setproctitle.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-setproctitle.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/setproctitle.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-setproctitle.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-setproctitle.o `test -f 'nlib/src/zbxcommon/setproctitle.c' || echo '$(srcdir)/'`nlib/src/zbxcommon/setproctitle.c
+
+nlib/src/zbxcommon/libzbxipcservice_test_a-setproctitle.obj: nlib/src/zbxcommon/setproctitle.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxcommon/libzbxipcservice_test_a-setproctitle.obj -MD -MP -MF nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-setproctitle.Tpo -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-setproctitle.obj `if test -f 'nlib/src/zbxcommon/setproctitle.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/setproctitle.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/setproctitle.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-setproctitle.Tpo nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-setproctitle.Po
+#	$(AM_V_CC)source='nlib/src/zbxcommon/setproctitle.c' object='nlib/src/zbxcommon/libzbxipcservice_test_a-setproctitle.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxcommon/libzbxipcservice_test_a-setproctitle.obj `if test -f 'nlib/src/zbxcommon/setproctitle.c'; then $(CYGPATH_W) 'nlib/src/zbxcommon/setproctitle.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxcommon/setproctitle.c'; fi`
+
+nlib/src/zbxnum/libzbxipcservice_test_a-num.o: nlib/src/zbxnum/num.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxnum/libzbxipcservice_test_a-num.o -MD -MP -MF nlib/src/zbxnum/$(DEPDIR)/libzbxipcservice_test_a-num.Tpo -c -o nlib/src/zbxnum/libzbxipcservice_test_a-num.o `test -f 'nlib/src/zbxnum/num.c' || echo '$(srcdir)/'`nlib/src/zbxnum/num.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxnum/$(DEPDIR)/libzbxipcservice_test_a-num.Tpo nlib/src/zbxnum/$(DEPDIR)/libzbxipcservice_test_a-num.Po
+#	$(AM_V_CC)source='nlib/src/zbxnum/num.c' object='nlib/src/zbxnum/libzbxipcservice_test_a-num.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxnum/libzbxipcservice_test_a-num.o `test -f 'nlib/src/zbxnum/num.c' || echo '$(srcdir)/'`nlib/src/zbxnum/num.c
+
+nlib/src/zbxnum/libzbxipcservice_test_a-num.obj: nlib/src/zbxnum/num.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxnum/libzbxipcservice_test_a-num.obj -MD -MP -MF nlib/src/zbxnum/$(DEPDIR)/libzbxipcservice_test_a-num.Tpo -c -o nlib/src/zbxnum/libzbxipcservice_test_a-num.obj `if test -f 'nlib/src/zbxnum/num.c'; then $(CYGPATH_W) 'nlib/src/zbxnum/num.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxnum/num.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxnum/$(DEPDIR)/libzbxipcservice_test_a-num.Tpo nlib/src/zbxnum/$(DEPDIR)/libzbxipcservice_test_a-num.Po
+#	$(AM_V_CC)source='nlib/src/zbxnum/num.c' object='nlib/src/zbxnum/libzbxipcservice_test_a-num.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxnum/libzbxipcservice_test_a-num.obj `if test -f 'nlib/src/zbxnum/num.c'; then $(CYGPATH_W) 'nlib/src/zbxnum/num.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxnum/num.c'; fi`
+
+nlib/src/zbxprof/libzbxipcservice_test_a-prof.o: nlib/src/zbxprof/prof.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxprof/libzbxipcservice_test_a-prof.o -MD -MP -MF nlib/src/zbxprof/$(DEPDIR)/libzbxipcservice_test_a-prof.Tpo -c -o nlib/src/zbxprof/libzbxipcservice_test_a-prof.o `test -f 'nlib/src/zbxprof/prof.c' || echo '$(srcdir)/'`nlib/src/zbxprof/prof.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxprof/$(DEPDIR)/libzbxipcservice_test_a-prof.Tpo nlib/src/zbxprof/$(DEPDIR)/libzbxipcservice_test_a-prof.Po
+#	$(AM_V_CC)source='nlib/src/zbxprof/prof.c' object='nlib/src/zbxprof/libzbxipcservice_test_a-prof.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxprof/libzbxipcservice_test_a-prof.o `test -f 'nlib/src/zbxprof/prof.c' || echo '$(srcdir)/'`nlib/src/zbxprof/prof.c
+
+nlib/src/zbxprof/libzbxipcservice_test_a-prof.obj: nlib/src/zbxprof/prof.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxprof/libzbxipcservice_test_a-prof.obj -MD -MP -MF nlib/src/zbxprof/$(DEPDIR)/libzbxipcservice_test_a-prof.Tpo -c -o nlib/src/zbxprof/libzbxipcservice_test_a-prof.obj `if test -f 'nlib/src/zbxprof/prof.c'; then $(CYGPATH_W) 'nlib/src/zbxprof/prof.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxprof/prof.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxprof/$(DEPDIR)/libzbxipcservice_test_a-prof.Tpo nlib/src/zbxprof/$(DEPDIR)/libzbxipcservice_test_a-prof.Po
+#	$(AM_V_CC)source='nlib/src/zbxprof/prof.c' object='nlib/src/zbxprof/libzbxipcservice_test_a-prof.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxprof/libzbxipcservice_test_a-prof.obj `if test -f 'nlib/src/zbxprof/prof.c'; then $(CYGPATH_W) 'nlib/src/zbxprof/prof.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxprof/prof.c'; fi`
+
+nlib/src/zbxstr/libzbxipcservice_test_a-str.o: nlib/src/zbxstr/str.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxstr/libzbxipcservice_test_a-str.o -MD -MP -MF nlib/src/zbxstr/$(DEPDIR)/libzbxipcservice_test_a-str.Tpo -c -o nlib/src/zbxstr/libzbxipcservice_test_a-str.o `test -f 'nlib/src/zbxstr/str.c' || echo '$(srcdir)/'`nlib/src/zbxstr/str.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxstr/$(DEPDIR)/libzbxipcservice_test_a-str.Tpo nlib/src/zbxstr/$(DEPDIR)/libzbxipcservice_test_a-str.Po
+#	$(AM_V_CC)source='nlib/src/zbxstr/str.c' object='nlib/src/zbxstr/libzbxipcservice_test_a-str.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxstr/libzbxipcservice_test_a-str.o `test -f 'nlib/src/zbxstr/str.c' || echo '$(srcdir)/'`nlib/src/zbxstr/str.c
+
+nlib/src/zbxstr/libzbxipcservice_test_a-str.obj: nlib/src/zbxstr/str.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxstr/libzbxipcservice_test_a-str.obj -MD -MP -MF nlib/src/zbxstr/$(DEPDIR)/libzbxipcservice_test_a-str.Tpo -c -o nlib/src/zbxstr/libzbxipcservice_test_a-str.obj `if test -f 'nlib/src/zbxstr/str.c'; then $(CYGPATH_W) 'nlib/src/zbxstr/str.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxstr/str.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxstr/$(DEPDIR)/libzbxipcservice_test_a-str.Tpo nlib/src/zbxstr/$(DEPDIR)/libzbxipcservice_test_a-str.Po
+#	$(AM_V_CC)source='nlib/src/zbxstr/str.c' object='nlib/src/zbxstr/libzbxipcservice_test_a-str.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxstr/libzbxipcservice_test_a-str.obj `if test -f 'nlib/src/zbxstr/str.c'; then $(CYGPATH_W) 'nlib/src/zbxstr/str.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxstr/str.c'; fi`
+
+nlib/src/zbxtime/libzbxipcservice_test_a-time.o: nlib/src/zbxtime/time.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxtime/libzbxipcservice_test_a-time.o -MD -MP -MF nlib/src/zbxtime/$(DEPDIR)/libzbxipcservice_test_a-time.Tpo -c -o nlib/src/zbxtime/libzbxipcservice_test_a-time.o `test -f 'nlib/src/zbxtime/time.c' || echo '$(srcdir)/'`nlib/src/zbxtime/time.c
+	$(AM_V_at)$(am__mv) nlib/src/zbxtime/$(DEPDIR)/libzbxipcservice_test_a-time.Tpo nlib/src/zbxtime/$(DEPDIR)/libzbxipcservice_test_a-time.Po
+#	$(AM_V_CC)source='nlib/src/zbxtime/time.c' object='nlib/src/zbxtime/libzbxipcservice_test_a-time.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxtime/libzbxipcservice_test_a-time.o `test -f 'nlib/src/zbxtime/time.c' || echo '$(srcdir)/'`nlib/src/zbxtime/time.c
+
+nlib/src/zbxtime/libzbxipcservice_test_a-time.obj: nlib/src/zbxtime/time.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -MT nlib/src/zbxtime/libzbxipcservice_test_a-time.obj -MD -MP -MF nlib/src/zbxtime/$(DEPDIR)/libzbxipcservice_test_a-time.Tpo -c -o nlib/src/zbxtime/libzbxipcservice_test_a-time.obj `if test -f 'nlib/src/zbxtime/time.c'; then $(CYGPATH_W) 'nlib/src/zbxtime/time.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxtime/time.c'; fi`
+	$(AM_V_at)$(am__mv) nlib/src/zbxtime/$(DEPDIR)/libzbxipcservice_test_a-time.Tpo nlib/src/zbxtime/$(DEPDIR)/libzbxipcservice_test_a-time.Po
+#	$(AM_V_CC)source='nlib/src/zbxtime/time.c' object='nlib/src/zbxtime/libzbxipcservice_test_a-time.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libzbxipcservice_test_a_CFLAGS) $(CFLAGS) -c -o nlib/src/zbxtime/libzbxipcservice_test_a-time.obj `if test -f 'nlib/src/zbxtime/time.c'; then $(CYGPATH_W) 'nlib/src/zbxtime/time.c'; else $(CYGPATH_W) '$(srcdir)/nlib/src/zbxtime/time.c'; fi`
+
 mprocess-mprocess.o: mprocess.c
 	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mprocess_CFLAGS) $(CFLAGS) -MT mprocess-mprocess.o -MD -MP -MF $(DEPDIR)/mprocess-mprocess.Tpo -c -o mprocess-mprocess.o `test -f 'mprocess.c' || echo '$(srcdir)/'`mprocess.c
 	$(AM_V_at)$(am__mv) $(DEPDIR)/mprocess-mprocess.Tpo $(DEPDIR)/mprocess-mprocess.Po
@@ -794,6 +1387,146 @@ mprocess-mprocess.obj: mprocess.c
 #	$(AM_V_CC)source='mprocess.c' object='mprocess-mprocess.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
 #	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(mprocess_CFLAGS) $(CFLAGS) -c -o mprocess-mprocess.obj `if test -f 'mprocess.c'; then $(CYGPATH_W) 'mprocess.c'; else $(CYGPATH_W) '$(srcdir)/mprocess.c'; fi`
+
+rtc_agt-rtc_agt.o: rtc_agt.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_agt_CFLAGS) $(CFLAGS) -MT rtc_agt-rtc_agt.o -MD -MP -MF $(DEPDIR)/rtc_agt-rtc_agt.Tpo -c -o rtc_agt-rtc_agt.o `test -f 'rtc_agt.c' || echo '$(srcdir)/'`rtc_agt.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_agt-rtc_agt.Tpo $(DEPDIR)/rtc_agt-rtc_agt.Po
+#	$(AM_V_CC)source='rtc_agt.c' object='rtc_agt-rtc_agt.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_agt_CFLAGS) $(CFLAGS) -c -o rtc_agt-rtc_agt.o `test -f 'rtc_agt.c' || echo '$(srcdir)/'`rtc_agt.c
+
+rtc_agt-rtc_agt.obj: rtc_agt.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_agt_CFLAGS) $(CFLAGS) -MT rtc_agt-rtc_agt.obj -MD -MP -MF $(DEPDIR)/rtc_agt-rtc_agt.Tpo -c -o rtc_agt-rtc_agt.obj `if test -f 'rtc_agt.c'; then $(CYGPATH_W) 'rtc_agt.c'; else $(CYGPATH_W) '$(srcdir)/rtc_agt.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_agt-rtc_agt.Tpo $(DEPDIR)/rtc_agt-rtc_agt.Po
+#	$(AM_V_CC)source='rtc_agt.c' object='rtc_agt-rtc_agt.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_agt_CFLAGS) $(CFLAGS) -c -o rtc_agt-rtc_agt.obj `if test -f 'rtc_agt.c'; then $(CYGPATH_W) 'rtc_agt.c'; else $(CYGPATH_W) '$(srcdir)/rtc_agt.c'; fi`
+
+rtc_agt-rtc_client.o: rtc_client.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_agt_CFLAGS) $(CFLAGS) -MT rtc_agt-rtc_client.o -MD -MP -MF $(DEPDIR)/rtc_agt-rtc_client.Tpo -c -o rtc_agt-rtc_client.o `test -f 'rtc_client.c' || echo '$(srcdir)/'`rtc_client.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_agt-rtc_client.Tpo $(DEPDIR)/rtc_agt-rtc_client.Po
+#	$(AM_V_CC)source='rtc_client.c' object='rtc_agt-rtc_client.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_agt_CFLAGS) $(CFLAGS) -c -o rtc_agt-rtc_client.o `test -f 'rtc_client.c' || echo '$(srcdir)/'`rtc_client.c
+
+rtc_agt-rtc_client.obj: rtc_client.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_agt_CFLAGS) $(CFLAGS) -MT rtc_agt-rtc_client.obj -MD -MP -MF $(DEPDIR)/rtc_agt-rtc_client.Tpo -c -o rtc_agt-rtc_client.obj `if test -f 'rtc_client.c'; then $(CYGPATH_W) 'rtc_client.c'; else $(CYGPATH_W) '$(srcdir)/rtc_client.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_agt-rtc_client.Tpo $(DEPDIR)/rtc_agt-rtc_client.Po
+#	$(AM_V_CC)source='rtc_client.c' object='rtc_agt-rtc_client.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_agt_CFLAGS) $(CFLAGS) -c -o rtc_agt-rtc_client.obj `if test -f 'rtc_client.c'; then $(CYGPATH_W) 'rtc_client.c'; else $(CYGPATH_W) '$(srcdir)/rtc_client.c'; fi`
+
+rtc_agt-rtc.o: rtc.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_agt_CFLAGS) $(CFLAGS) -MT rtc_agt-rtc.o -MD -MP -MF $(DEPDIR)/rtc_agt-rtc.Tpo -c -o rtc_agt-rtc.o `test -f 'rtc.c' || echo '$(srcdir)/'`rtc.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_agt-rtc.Tpo $(DEPDIR)/rtc_agt-rtc.Po
+#	$(AM_V_CC)source='rtc.c' object='rtc_agt-rtc.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_agt_CFLAGS) $(CFLAGS) -c -o rtc_agt-rtc.o `test -f 'rtc.c' || echo '$(srcdir)/'`rtc.c
+
+rtc_agt-rtc.obj: rtc.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_agt_CFLAGS) $(CFLAGS) -MT rtc_agt-rtc.obj -MD -MP -MF $(DEPDIR)/rtc_agt-rtc.Tpo -c -o rtc_agt-rtc.obj `if test -f 'rtc.c'; then $(CYGPATH_W) 'rtc.c'; else $(CYGPATH_W) '$(srcdir)/rtc.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_agt-rtc.Tpo $(DEPDIR)/rtc_agt-rtc.Po
+#	$(AM_V_CC)source='rtc.c' object='rtc_agt-rtc.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_agt_CFLAGS) $(CFLAGS) -c -o rtc_agt-rtc.obj `if test -f 'rtc.c'; then $(CYGPATH_W) 'rtc.c'; else $(CYGPATH_W) '$(srcdir)/rtc.c'; fi`
+
+rtc_serv-rtc_serv.o: rtc_serv.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -MT rtc_serv-rtc_serv.o -MD -MP -MF $(DEPDIR)/rtc_serv-rtc_serv.Tpo -c -o rtc_serv-rtc_serv.o `test -f 'rtc_serv.c' || echo '$(srcdir)/'`rtc_serv.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_serv-rtc_serv.Tpo $(DEPDIR)/rtc_serv-rtc_serv.Po
+#	$(AM_V_CC)source='rtc_serv.c' object='rtc_serv-rtc_serv.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -c -o rtc_serv-rtc_serv.o `test -f 'rtc_serv.c' || echo '$(srcdir)/'`rtc_serv.c
+
+rtc_serv-rtc_serv.obj: rtc_serv.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -MT rtc_serv-rtc_serv.obj -MD -MP -MF $(DEPDIR)/rtc_serv-rtc_serv.Tpo -c -o rtc_serv-rtc_serv.obj `if test -f 'rtc_serv.c'; then $(CYGPATH_W) 'rtc_serv.c'; else $(CYGPATH_W) '$(srcdir)/rtc_serv.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_serv-rtc_serv.Tpo $(DEPDIR)/rtc_serv-rtc_serv.Po
+#	$(AM_V_CC)source='rtc_serv.c' object='rtc_serv-rtc_serv.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -c -o rtc_serv-rtc_serv.obj `if test -f 'rtc_serv.c'; then $(CYGPATH_W) 'rtc_serv.c'; else $(CYGPATH_W) '$(srcdir)/rtc_serv.c'; fi`
+
+rtc_serv-rtc_service.o: rtc_service.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -MT rtc_serv-rtc_service.o -MD -MP -MF $(DEPDIR)/rtc_serv-rtc_service.Tpo -c -o rtc_serv-rtc_service.o `test -f 'rtc_service.c' || echo '$(srcdir)/'`rtc_service.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_serv-rtc_service.Tpo $(DEPDIR)/rtc_serv-rtc_service.Po
+#	$(AM_V_CC)source='rtc_service.c' object='rtc_serv-rtc_service.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -c -o rtc_serv-rtc_service.o `test -f 'rtc_service.c' || echo '$(srcdir)/'`rtc_service.c
+
+rtc_serv-rtc_service.obj: rtc_service.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -MT rtc_serv-rtc_service.obj -MD -MP -MF $(DEPDIR)/rtc_serv-rtc_service.Tpo -c -o rtc_serv-rtc_service.obj `if test -f 'rtc_service.c'; then $(CYGPATH_W) 'rtc_service.c'; else $(CYGPATH_W) '$(srcdir)/rtc_service.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_serv-rtc_service.Tpo $(DEPDIR)/rtc_serv-rtc_service.Po
+#	$(AM_V_CC)source='rtc_service.c' object='rtc_serv-rtc_service.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -c -o rtc_serv-rtc_service.obj `if test -f 'rtc_service.c'; then $(CYGPATH_W) 'rtc_service.c'; else $(CYGPATH_W) '$(srcdir)/rtc_service.c'; fi`
+
+rtc_serv-rtc_client.o: rtc_client.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -MT rtc_serv-rtc_client.o -MD -MP -MF $(DEPDIR)/rtc_serv-rtc_client.Tpo -c -o rtc_serv-rtc_client.o `test -f 'rtc_client.c' || echo '$(srcdir)/'`rtc_client.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_serv-rtc_client.Tpo $(DEPDIR)/rtc_serv-rtc_client.Po
+#	$(AM_V_CC)source='rtc_client.c' object='rtc_serv-rtc_client.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -c -o rtc_serv-rtc_client.o `test -f 'rtc_client.c' || echo '$(srcdir)/'`rtc_client.c
+
+rtc_serv-rtc_client.obj: rtc_client.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -MT rtc_serv-rtc_client.obj -MD -MP -MF $(DEPDIR)/rtc_serv-rtc_client.Tpo -c -o rtc_serv-rtc_client.obj `if test -f 'rtc_client.c'; then $(CYGPATH_W) 'rtc_client.c'; else $(CYGPATH_W) '$(srcdir)/rtc_client.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_serv-rtc_client.Tpo $(DEPDIR)/rtc_serv-rtc_client.Po
+#	$(AM_V_CC)source='rtc_client.c' object='rtc_serv-rtc_client.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -c -o rtc_serv-rtc_client.obj `if test -f 'rtc_client.c'; then $(CYGPATH_W) 'rtc_client.c'; else $(CYGPATH_W) '$(srcdir)/rtc_client.c'; fi`
+
+rtc_serv-rtc.o: rtc.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -MT rtc_serv-rtc.o -MD -MP -MF $(DEPDIR)/rtc_serv-rtc.Tpo -c -o rtc_serv-rtc.o `test -f 'rtc.c' || echo '$(srcdir)/'`rtc.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_serv-rtc.Tpo $(DEPDIR)/rtc_serv-rtc.Po
+#	$(AM_V_CC)source='rtc.c' object='rtc_serv-rtc.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -c -o rtc_serv-rtc.o `test -f 'rtc.c' || echo '$(srcdir)/'`rtc.c
+
+rtc_serv-rtc.obj: rtc.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -MT rtc_serv-rtc.obj -MD -MP -MF $(DEPDIR)/rtc_serv-rtc.Tpo -c -o rtc_serv-rtc.obj `if test -f 'rtc.c'; then $(CYGPATH_W) 'rtc.c'; else $(CYGPATH_W) '$(srcdir)/rtc.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_serv-rtc.Tpo $(DEPDIR)/rtc_serv-rtc.Po
+#	$(AM_V_CC)source='rtc.c' object='rtc_serv-rtc.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_serv_CFLAGS) $(CFLAGS) -c -o rtc_serv-rtc.obj `if test -f 'rtc.c'; then $(CYGPATH_W) 'rtc.c'; else $(CYGPATH_W) '$(srcdir)/rtc.c'; fi`
+
+rtc_slv-rtc_slv.o: rtc_slv.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_slv_CFLAGS) $(CFLAGS) -MT rtc_slv-rtc_slv.o -MD -MP -MF $(DEPDIR)/rtc_slv-rtc_slv.Tpo -c -o rtc_slv-rtc_slv.o `test -f 'rtc_slv.c' || echo '$(srcdir)/'`rtc_slv.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_slv-rtc_slv.Tpo $(DEPDIR)/rtc_slv-rtc_slv.Po
+#	$(AM_V_CC)source='rtc_slv.c' object='rtc_slv-rtc_slv.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_slv_CFLAGS) $(CFLAGS) -c -o rtc_slv-rtc_slv.o `test -f 'rtc_slv.c' || echo '$(srcdir)/'`rtc_slv.c
+
+rtc_slv-rtc_slv.obj: rtc_slv.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_slv_CFLAGS) $(CFLAGS) -MT rtc_slv-rtc_slv.obj -MD -MP -MF $(DEPDIR)/rtc_slv-rtc_slv.Tpo -c -o rtc_slv-rtc_slv.obj `if test -f 'rtc_slv.c'; then $(CYGPATH_W) 'rtc_slv.c'; else $(CYGPATH_W) '$(srcdir)/rtc_slv.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_slv-rtc_slv.Tpo $(DEPDIR)/rtc_slv-rtc_slv.Po
+#	$(AM_V_CC)source='rtc_slv.c' object='rtc_slv-rtc_slv.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_slv_CFLAGS) $(CFLAGS) -c -o rtc_slv-rtc_slv.obj `if test -f 'rtc_slv.c'; then $(CYGPATH_W) 'rtc_slv.c'; else $(CYGPATH_W) '$(srcdir)/rtc_slv.c'; fi`
+
+rtc_slv-rtc_client.o: rtc_client.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_slv_CFLAGS) $(CFLAGS) -MT rtc_slv-rtc_client.o -MD -MP -MF $(DEPDIR)/rtc_slv-rtc_client.Tpo -c -o rtc_slv-rtc_client.o `test -f 'rtc_client.c' || echo '$(srcdir)/'`rtc_client.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_slv-rtc_client.Tpo $(DEPDIR)/rtc_slv-rtc_client.Po
+#	$(AM_V_CC)source='rtc_client.c' object='rtc_slv-rtc_client.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_slv_CFLAGS) $(CFLAGS) -c -o rtc_slv-rtc_client.o `test -f 'rtc_client.c' || echo '$(srcdir)/'`rtc_client.c
+
+rtc_slv-rtc_client.obj: rtc_client.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_slv_CFLAGS) $(CFLAGS) -MT rtc_slv-rtc_client.obj -MD -MP -MF $(DEPDIR)/rtc_slv-rtc_client.Tpo -c -o rtc_slv-rtc_client.obj `if test -f 'rtc_client.c'; then $(CYGPATH_W) 'rtc_client.c'; else $(CYGPATH_W) '$(srcdir)/rtc_client.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_slv-rtc_client.Tpo $(DEPDIR)/rtc_slv-rtc_client.Po
+#	$(AM_V_CC)source='rtc_client.c' object='rtc_slv-rtc_client.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_slv_CFLAGS) $(CFLAGS) -c -o rtc_slv-rtc_client.obj `if test -f 'rtc_client.c'; then $(CYGPATH_W) 'rtc_client.c'; else $(CYGPATH_W) '$(srcdir)/rtc_client.c'; fi`
+
+rtc_slv-rtc.o: rtc.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_slv_CFLAGS) $(CFLAGS) -MT rtc_slv-rtc.o -MD -MP -MF $(DEPDIR)/rtc_slv-rtc.Tpo -c -o rtc_slv-rtc.o `test -f 'rtc.c' || echo '$(srcdir)/'`rtc.c
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_slv-rtc.Tpo $(DEPDIR)/rtc_slv-rtc.Po
+#	$(AM_V_CC)source='rtc.c' object='rtc_slv-rtc.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_slv_CFLAGS) $(CFLAGS) -c -o rtc_slv-rtc.o `test -f 'rtc.c' || echo '$(srcdir)/'`rtc.c
+
+rtc_slv-rtc.obj: rtc.c
+	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_slv_CFLAGS) $(CFLAGS) -MT rtc_slv-rtc.obj -MD -MP -MF $(DEPDIR)/rtc_slv-rtc.Tpo -c -o rtc_slv-rtc.obj `if test -f 'rtc.c'; then $(CYGPATH_W) 'rtc.c'; else $(CYGPATH_W) '$(srcdir)/rtc.c'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/rtc_slv-rtc.Tpo $(DEPDIR)/rtc_slv-rtc.Po
+#	$(AM_V_CC)source='rtc.c' object='rtc_slv-rtc.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) \
+#	$(AM_V_CC_no)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(rtc_slv_CFLAGS) $(CFLAGS) -c -o rtc_slv-rtc.obj `if test -f 'rtc.c'; then $(CYGPATH_W) 'rtc.c'; else $(CYGPATH_W) '$(srcdir)/rtc.c'; fi`
 
 sprocess-sprocess.o: sprocess.c
 	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(sprocess_CFLAGS) $(CFLAGS) -MT sprocess-sprocess.o -MD -MP -MF $(DEPDIR)/sprocess-sprocess.Tpo -c -o sprocess-sprocess.o `test -f 'sprocess.c' || echo '$(srcdir)/'`sprocess.c
@@ -895,7 +1628,7 @@ distdir-am: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile $(PROGRAMS)
+all-am: Makefile $(PROGRAMS) $(LIBRARIES)
 installdirs:
 install: install-am
 install-exec: install-exec-am
@@ -923,17 +1656,63 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-rm -f ipc/$(DEPDIR)/$(am__dirstamp)
+	-rm -f ipc/$(am__dirstamp)
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/$(am__dirstamp)
+	-rm -f nlib/src/zbxalgo/$(am__dirstamp)
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/$(am__dirstamp)
+	-rm -f nlib/src/zbxcommon/$(am__dirstamp)
+	-rm -f nlib/src/zbxnum/$(DEPDIR)/$(am__dirstamp)
+	-rm -f nlib/src/zbxnum/$(am__dirstamp)
+	-rm -f nlib/src/zbxprof/$(DEPDIR)/$(am__dirstamp)
+	-rm -f nlib/src/zbxprof/$(am__dirstamp)
+	-rm -f nlib/src/zbxstr/$(DEPDIR)/$(am__dirstamp)
+	-rm -f nlib/src/zbxstr/$(am__dirstamp)
+	-rm -f nlib/src/zbxtime/$(DEPDIR)/$(am__dirstamp)
+	-rm -f nlib/src/zbxtime/$(am__dirstamp)
 
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-am
 
-clean-am: clean-generic clean-noinstPROGRAMS mostlyclean-am
+clean-am: clean-generic clean-noinstLIBRARIES clean-noinstPROGRAMS \
+	mostlyclean-am
 
 distclean: distclean-am
 		-rm -f ./$(DEPDIR)/mprocess-mprocess.Po
+	-rm -f ./$(DEPDIR)/rtc_agt-rtc.Po
+	-rm -f ./$(DEPDIR)/rtc_agt-rtc_agt.Po
+	-rm -f ./$(DEPDIR)/rtc_agt-rtc_client.Po
+	-rm -f ./$(DEPDIR)/rtc_serv-rtc.Po
+	-rm -f ./$(DEPDIR)/rtc_serv-rtc_client.Po
+	-rm -f ./$(DEPDIR)/rtc_serv-rtc_serv.Po
+	-rm -f ./$(DEPDIR)/rtc_serv-rtc_service.Po
+	-rm -f ./$(DEPDIR)/rtc_slv-rtc.Po
+	-rm -f ./$(DEPDIR)/rtc_slv-rtc_client.Po
+	-rm -f ./$(DEPDIR)/rtc_slv-rtc_slv.Po
 	-rm -f ./$(DEPDIR)/sprocess-sprocess.Po
+	-rm -f ipc/$(DEPDIR)/libzbxipcservice_test_a-ipcservice.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-algodefs.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-binaryheap.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashmap.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashset.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-int128.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-linked_list.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-prediction.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-queue.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-vector.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_log.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_str.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-components_strings_representations.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-cuid.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-libc_wrappers.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-misc.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-setproctitle.Po
+	-rm -f nlib/src/zbxnum/$(DEPDIR)/libzbxipcservice_test_a-num.Po
+	-rm -f nlib/src/zbxprof/$(DEPDIR)/libzbxipcservice_test_a-prof.Po
+	-rm -f nlib/src/zbxstr/$(DEPDIR)/libzbxipcservice_test_a-str.Po
+	-rm -f nlib/src/zbxtime/$(DEPDIR)/libzbxipcservice_test_a-time.Po
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -980,7 +1759,38 @@ installcheck-am:
 
 maintainer-clean: maintainer-clean-am
 		-rm -f ./$(DEPDIR)/mprocess-mprocess.Po
+	-rm -f ./$(DEPDIR)/rtc_agt-rtc.Po
+	-rm -f ./$(DEPDIR)/rtc_agt-rtc_agt.Po
+	-rm -f ./$(DEPDIR)/rtc_agt-rtc_client.Po
+	-rm -f ./$(DEPDIR)/rtc_serv-rtc.Po
+	-rm -f ./$(DEPDIR)/rtc_serv-rtc_client.Po
+	-rm -f ./$(DEPDIR)/rtc_serv-rtc_serv.Po
+	-rm -f ./$(DEPDIR)/rtc_serv-rtc_service.Po
+	-rm -f ./$(DEPDIR)/rtc_slv-rtc.Po
+	-rm -f ./$(DEPDIR)/rtc_slv-rtc_client.Po
+	-rm -f ./$(DEPDIR)/rtc_slv-rtc_slv.Po
 	-rm -f ./$(DEPDIR)/sprocess-sprocess.Po
+	-rm -f ipc/$(DEPDIR)/libzbxipcservice_test_a-ipcservice.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-algodefs.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-binaryheap.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashmap.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-hashset.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-int128.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-linked_list.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-prediction.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-queue.Po
+	-rm -f nlib/src/zbxalgo/$(DEPDIR)/libzbxipcservice_test_a-vector.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_log.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-common_str.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-components_strings_representations.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-cuid.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-libc_wrappers.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-misc.Po
+	-rm -f nlib/src/zbxcommon/$(DEPDIR)/libzbxipcservice_test_a-setproctitle.Po
+	-rm -f nlib/src/zbxnum/$(DEPDIR)/libzbxipcservice_test_a-num.Po
+	-rm -f nlib/src/zbxprof/$(DEPDIR)/libzbxipcservice_test_a-prof.Po
+	-rm -f nlib/src/zbxstr/$(DEPDIR)/libzbxipcservice_test_a-str.Po
+	-rm -f nlib/src/zbxtime/$(DEPDIR)/libzbxipcservice_test_a-time.Po
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -1001,17 +1811,18 @@ uninstall-am:
 .MAKE: install-am install-strip
 
 .PHONY: CTAGS GTAGS TAGS all all-am am--depfiles check check-am clean \
-	clean-generic clean-noinstPROGRAMS cscopelist-am ctags \
-	ctags-am distclean distclean-compile distclean-generic \
-	distclean-tags distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am install-dvi \
-	install-dvi-am install-exec install-exec-am install-html \
-	install-html-am install-info install-info-am install-man \
-	install-pdf install-pdf-am install-ps install-ps-am \
-	install-strip installcheck installcheck-am installdirs \
-	maintainer-clean maintainer-clean-generic mostlyclean \
-	mostlyclean-compile mostlyclean-generic pdf pdf-am ps ps-am \
-	tags tags-am uninstall uninstall-am
+	clean-generic clean-noinstLIBRARIES clean-noinstPROGRAMS \
+	cscopelist-am ctags ctags-am distclean distclean-compile \
+	distclean-generic distclean-tags distdir dvi dvi-am html \
+	html-am info info-am install install-am install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-man install-pdf install-pdf-am \
+	install-ps install-ps-am install-strip installcheck \
+	installcheck-am installdirs maintainer-clean \
+	maintainer-clean-generic mostlyclean mostlyclean-compile \
+	mostlyclean-generic pdf pdf-am ps ps-am tags tags-am uninstall \
+	uninstall-am
 
 .PRECIOUS: Makefile
 

@@ -11,35 +11,41 @@ noinst_PROGRAMS = $(BINARIES_tests)
 noinst_LIBRARIES = libzbxipcservice_test.a
 
 IPC_COMPILER_FLAGS = \
-        -I@top_srcdir@/tests \
+        -I$(srcdir)/nlib/include \
+        -I$(srcdir)/nlib/include/common \
         $(CMOCKA_CFLAGS)
 
 IPC_LIBS = \
-$(builddir)/libzbxipcservice_test.a \
-$(top_srcdir)/src/libs/zbxserialize/libzbxserialize.a \
-$(top_srcdir)/src/libs/zbxjson/libzbxjson.a \
-$(top_srcdir)/src/libs/zbxcachehistory/libzbxcachehistory.a \
-$(top_srcdir)/src/libs/zbxself/libzbxself.a \
-$(top_srcdir)/src/libs/zbxdiag/libzbxdiag.a \
-$(top_srcdir)/src/libs/zbxlog/libzbxlog.a \
-$(top_srcdir)/src/libs/zbxthreads/libzbxthreads.a \
-$(top_srcdir)/src/libs/zbxmutexs/libzbxmutexs.a \
-$(top_srcdir)/src/libs/zbxprof/libzbxprof.a \
-$(top_srcdir)/src/libs/zbxnix/libzbxnix.a \
-$(top_srcdir)/src/libs/zbxalgo/libzbxalgo.a \
-$(top_srcdir)/src/libs/zbxnum/libzbxnum.a \
-$(top_srcdir)/src/libs/zbxtime/libzbxtime.a \
-$(top_srcdir)/src/libs/zbxstr/libzbxstr.a \
-$(top_srcdir)/src/libs/zbxcommon/libzbxcommon.a
+$(builddir)/libzbxipcservice_test.a
 
 libzbxipcservice_test_a_SOURCES = \
-	ipc/ipcservice.c
+	ipc/ipcservice.c \
+	nlib/src/zbxalgo/algodefs.c \
+	nlib/src/zbxalgo/binaryheap.c \
+	nlib/src/zbxalgo/hashmap.c \
+	nlib/src/zbxalgo/hashset.c \
+	nlib/src/zbxalgo/int128.c \
+	nlib/src/zbxalgo/linked_list.c \
+	nlib/src/zbxalgo/prediction.c \
+	nlib/src/zbxalgo/queue.c \
+	nlib/src/zbxalgo/vector.c \
+	nlib/src/zbxcommon/common_log.c \
+	nlib/src/zbxcommon/common_str.c \
+	nlib/src/zbxcommon/components_strings_representations.c \
+	nlib/src/zbxcommon/cuid.c \
+	nlib/src/zbxcommon/libc_wrappers.c \
+	nlib/src/zbxcommon/misc.c \
+	nlib/src/zbxcommon/setproctitle.c \
+	nlib/src/zbxnum/num.c \
+	nlib/src/zbxprof/prof.c \
+	nlib/src/zbxstr/str.c \
+	nlib/src/zbxtime/time.c
 
 libzbxipcservice_test_a_CFLAGS = \
 	$(LIBEVENT_CFLAGS)
 
 mprocess_SOURCES = \
-       mprocess.c 
+       mprocess.c
 mprocess_LDADD = \
         $(IPC_LIBS)
 mprocess_LDADD += @SERVER_LIBS@
