@@ -30,6 +30,7 @@
 #define HAVE_SYS_WAIT_H 1
 #define HAVE_TIME_H 1
 #define HAVE_UNISTD_H 1
+#define HAVE_SYSLONG_H 1
 
 #define HAVE_IPCSERVICE 1
 #define HAVE_LIBEVENT 1

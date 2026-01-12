@@ -73,7 +73,9 @@ LIBZBXIPC_SRC := \
 	nlib/src/zbxnum/num.c \
 	nlib/src/zbxprof/prof.c \
 	nlib/src/zbxstr/str.c \
-	nlib/src/zbxtime/time.c
+	nlib/src/zbxtime/time.c \
+	nlib/src/zbxnix/fatal.c \
+	nlib/src/zbxlog/log.c
 
 LIBZBXIPC_OBJ := $(patsubst %.c,$(OBJDIR)/%.o,$(LIBZBXIPC_SRC))
 
