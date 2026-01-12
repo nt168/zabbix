@@ -29,6 +29,9 @@ zbx_shared_lock_t;
 static zbx_shared_lock_t	*shared_lock;
 static int			shm_id, locks_disabled;
 #else
+#	include <sys/ipc.h>
+#	include <sys/sem.h>
+
 #	if !HAVE_SEMUN
 		union semun
 		{

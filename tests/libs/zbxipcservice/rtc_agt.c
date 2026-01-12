@@ -1,18 +1,19 @@
 #include "zbxcommon.h"
 #include "zbxrtc.h"
 #include "zbx_rtc_constants.h"
-
+#include "zbxlog.h"
+#include "zbxnix.h"
 #include <stdio.h>
 
 #define CLIENT_PROCESS_TYPE    ZBX_PROCESS_TYPE_MAIN
 #define CLIENT_MESSAGE_CODE    5001
-
+ZBX_GET_CONFIG_VAR2(const char*, const char*, zbx_progname, NULL)
 int main(void)
 {
     char *error = NULL;
     zbx_ipc_async_socket_t rtc;
     zbx_uint32_t messages[] = {CLIENT_MESSAGE_CODE};
-
+    zbx_init_library_common(zbx_log_impl, get_zbx_progname, zbx_backtrace);
     if (SUCCEED != zbx_ipc_service_init_env("/tmp", &error))
     {
         fprintf(stderr, "init ipc env failed: %s\n", error);
