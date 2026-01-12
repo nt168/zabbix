@@ -15,7 +15,7 @@
 #   make WITH_CMOCKA=0          # if you don't have libcmocka installed
 #   make clean
 
-CC      ?= gcc
+CC      ?= cc
 AR      ?= ar
 RM      ?= rm -f
 MKDIR_P ?= mkdir -p
@@ -26,10 +26,10 @@ LIBDIR  := $(BUILD)/lib
 
 # --- Flags ------------------------------------------------------------------
 CSTD    ?= -std=gnu11
-CFLAGS  ?= -g -O2 -DHAVE_SYS_UTSNAME_H=1
+CFLAGS  ?= -g -O2
 WARN    ?= -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-initializers
 
-CPPFLAGS ?=
+CPPFLAGS ?= 
 CPPFLAGS += -D_GNU_SOURCE -DHAVE_CONFIG_H
 CPPFLAGS += -I. -Iipc -Inlib/include -Inlib/include/common
 
@@ -75,6 +75,8 @@ LIBZBXIPC_SRC := \
 	nlib/src/zbxstr/str.c \
 	nlib/src/zbxtime/time.c \
 	nlib/src/zbxnix/fatal.c \
+	nlib/src/zbxnix/nix_internal.c \
+	nlib/src/zbxmutexs/mutexs.c \
 	nlib/src/zbxlog/log.c
 
 LIBZBXIPC_OBJ := $(patsubst %.c,$(OBJDIR)/%.o,$(LIBZBXIPC_SRC))
@@ -150,4 +152,3 @@ print-vars:
 	@echo "CPPFLAGS=$(CPPFLAGS)"
 	@echo "LDFLAGS=$(LDFLAGS)"
 	@echo "LDLIBS_BASE=$(LDLIBS_BASE)"
-

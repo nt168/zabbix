@@ -12,7 +12,9 @@
 ** If not, see <https://www.gnu.org/licenses/>.
 **/
 
+#ifndef _GNU_SOURCE
 #define _GNU_SOURCE	/* required for getting a CPU program counter and registers in sys/ucontext.h */
+#endif
 
 #include "zbxnix.h"
 

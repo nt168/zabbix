@@ -11,6 +11,8 @@ noinst_PROGRAMS = $(BINARIES_tests)
 noinst_LIBRARIES = libzbxipcservice_test.a
 
 IPC_COMPILER_FLAGS = \
+	-I$(builddir) \
+	-I$(srcdir) \
         -I$(srcdir)/nlib/include \
         -I$(srcdir)/nlib/include/common \
         $(CMOCKA_CFLAGS)
@@ -39,6 +41,7 @@ libzbxipcservice_test_a_SOURCES = \
 	nlib/src/zbxnum/num.c \
 	nlib/src/zbxprof/prof.c \
 	nlib/src/zbxstr/str.c \
+	nlib/src/zbxnix/nix_internal.c \
 	nlib/src/zbxtime/time.c
 
 libzbxipcservice_test_a_CFLAGS = \

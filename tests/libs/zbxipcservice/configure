@@ -1,0 +1,138 @@
+#!/bin/sh
+set -e
+
+srcdir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+builddir=$(pwd)
+
+CC=${CC:-cc}
+AR=${AR:-ar}
+RM=${RM:-rm -f}
+MKDIR_P=${MKDIR_P:-mkdir -p}
+CFLAGS=${CFLAGS:-"-g -O2"}
+CPPFLAGS=${CPPFLAGS:-""}
+
+show_help()
+{
+	cat <<'USAGE'
+Usage: ./configure [options]
+
+Options:
+  --help         show this help and exit
+
+Environment variables:
+  CC, AR, RM, MKDIR_P, CFLAGS, CPPFLAGS
+USAGE
+}
+
+if [ "${1:-}" = "--help" ]; then
+	show_help
+	exit 0
+fi
+
+check_header()
+{
+	header=$1
+	cat > conftest.c <<EOF
+#include <${header}>
+int main(void) { return 0; }
+EOF
+	if "$CC" $CPPFLAGS $CFLAGS -c conftest.c -o conftest.o >/dev/null 2>&1; then
+		return 0
+	fi
+	return 1
+}
+
+check_func()
+{
+	func=$1
+	header=$2
+	cat > conftest.c <<EOF
+#include <${header}>
+int main(void) {
+	(void)${func}();
+	return 0;
+}
+EOF
+	if "$CC" $CPPFLAGS $CFLAGS conftest.c -o conftest >/dev/null 2>&1; then
+		return 0
+	fi
+	return 1
+}
+
+add_define()
+{
+	defines="$defines
+#define $1 1"
+}
+
+defines=""
+
+for header in \
+	assert.h \
+	arpa/inet.h \
+	ctype.h \
+	errno.h \
+	execinfo.h \
+	fcntl.h \
+	float.h \
+	inttypes.h \
+	limits.h \
+	math.h \
+	netdb.h \
+	netinet/in.h \
+	poll.h \
+	signal.h \
+	stdarg.h \
+	stdint.h \
+	stdio.h \
+	stdlib.h \
+	string.h \
+	strings.h \
+	sys/param.h \
+	sys/resource.h \
+	sys/socket.h \
+	sys/stat.h \
+	sys/time.h \
+	sys/types.h \
+	sys/ucontext.h \
+	sys/utsname.h \
+	sys/wait.h \
+	syslog.h \
+	time.h \
+	unistd.h \
+	sys/un.h; do
+	macro=$(printf '%s' "$header" | tr '[:lower:]/.' '[:upper:]__')
+	if check_header "$header"; then
+		add_define "HAVE_${macro}"
+	fi
+
+done
+
+if check_header event2/event.h; then
+	add_define "HAVE_LIBEVENT"
+fi
+
+add_define "HAVE_IPCSERVICE"
+
+if check_func clock_gettime time.h; then
+	add_define "HAVE_TIME_CLOCK_GETTIME"
+fi
+
+cat > "${builddir}/config.h" <<EOF
+#ifndef ZBXIPCSERVICE_CONFIG_H
+#define ZBXIPCSERVICE_CONFIG_H${defines}
+#endif
+EOF
+
+sed \
+	-e "s|@CC@|${CC}|g" \
+	-e "s|@AR@|${AR}|g" \
+	-e "s|@RM@|${RM}|g" \
+	-e "s|@MKDIR_P@|${MKDIR_P}|g" \
+	-e "s|@CFLAGS@|${CFLAGS}|g" \
+	-e "s|@CPPFLAGS@|${CPPFLAGS}|g" \
+	"${srcdir}/Makefile.in" > "${builddir}/Makefile"
+
+rm -f conftest.c conftest.o conftest
+
+echo "Configuration complete. Run 'make' to build."
